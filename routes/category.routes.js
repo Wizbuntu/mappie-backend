@@ -6,7 +6,9 @@ const {
     createCategory,
     fetchCategories,
     fetchSingleCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory,
+    searchCategory
 } = require('../controllers/category.controller')
 
 // require express validator
@@ -38,6 +40,18 @@ router.put('/update/category/:categoryId',
     check('formSchema').notEmpty().withMessage("Form schema is required").bail().isArray().withMessage("Form schema type mismatch"),
     updateCategory)
 
+
+
+
+
+
+// delete category --- [DELETE]
+router.delete('/delete/category/:categoryId', deleteCategory)
+
+
+
+// search category ---- [GET]
+router.get('/search/category', searchCategory)
 
 // export
 module.exports = router

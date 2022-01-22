@@ -23,6 +23,11 @@ const userSchema = new Schema({
     password: {
         type: Schema.Types.String,
         required: true
+    },
+    isAdmin: {
+        type: Schema.Types.Boolean,
+        required: true,
+        default: true
     }
 }, { timestamps: true })
 

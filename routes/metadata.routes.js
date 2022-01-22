@@ -5,7 +5,9 @@ const router = require('express').Router()
 const {
     createMetaData,
     metadataByCategory,
-    fetchAllMetaData
+    fetchAllMetaData,
+    deleteMetaData,
+    searchMetaData
 } = require('../controllers/metadata.controller')
 
 // require express validator
@@ -28,6 +30,24 @@ router.get('/metadata/category/:categoryId', metadataByCategory)
 
 // fetch all metadata ---- [GET]
 router.get('/all/metadata', fetchAllMetaData)
+
+
+
+// search metaData
+router.get('/search/metadata', searchMetaData)
+
+
+// delete metaData
+router.delete('/delete/metadata/:metadataId', deleteMetaData)
+
+
+
+
+
+
+
+
+
 
 
 //export

@@ -134,9 +134,11 @@ const metadataByCategory = async(req, res) => {
 const fetchAllMetaData = async(req, res) => {
     try {
 
+        // get sort
+        const sortText = req.query.sort ? req.query.sort : "desc"
 
         // fetch all metadata
-        const metadatas = await MetaData.find({})
+        const metadatas = await MetaData.find({}).sort({ createdAt: sortText })
 
 
         // return success
@@ -157,11 +159,96 @@ const fetchAllMetaData = async(req, res) => {
 
 
 
+
+
+/**
+ * Delete MetaData
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Promise<any>}
+ */
+const deleteMetaData = async(req, res) => {
+    try {
+
+        // get metaDataId
+        const metadataId = req.params.metadataId
+
+        // check is mongoId
+        if (!isMongoId(metadataId)) {
+            return res.json({
+                success: false,
+                message: "Invalid metadata Id"
+            })
+        }
+
+
+        // delete meta data 
+        await MetaData.findOneAndDelete({ _id: metadataId })
+
+
+        // return success
+        return res.json({
+            success: true,
+            message: "Metadata deleted successfully"
+        })
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+/**
+ * Search MetaData
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Promise<any>}
+ */
+const searchMetaData = async(req, res) => {
+    try {
+
+        // get searchText
+        const searchText = req.query.search
+
+        // search MetaData
+        const metadatas = await MetaData.find({ $text: { $search: searchText } })
+
+
+        // return response
+        return res.json({
+            success: true,
+            data: metadatas
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+
+    }
+}
+
+
+
+
+
+
 // init metadataController
 const metaDataController = {
     createMetaData,
     metadataByCategory,
-    fetchAllMetaData
+    fetchAllMetaData,
+    deleteMetaData,
+    searchMetaData
 }
 
 

@@ -10,9 +10,14 @@ const cors = require('cors')
 // require category routes
 const categoryRoutes = require('./routes/category.routes')
 
-// require metaDataRouter 
-const metadataRouter = require('./routes/metadata.routes')
+// require metaDataRoutes
+const metadataRoutes = require('./routes/metadata.routes')
 
+// require authRoutes
+const authRoutes = require('./routes/auth.routes')
+
+// require reportingRoutes
+const reportingRoutes = require('./routes/reporting.routes')
 
 // init app
 const app = express()
@@ -35,7 +40,9 @@ app.use(express.json())
 
 // ROUTES
 app.use('/v1/api', categoryRoutes)
-app.use('/v1/api', metadataRouter)
+app.use('/v1/api', metadataRoutes)
+app.use('/v1/api', authRoutes)
+app.use('/v1/api', reportingRoutes)
 
 
 

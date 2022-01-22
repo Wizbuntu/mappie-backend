@@ -35,6 +35,9 @@ const metadataSchema = new Schema({
 }, { timestamps: true, strict: false })
 
 
+// add index
+metadataSchema.index({ country: 'text', categoryName: "text", categoryId: "text" })
+
 // create model
 const MetaData = mongoose.model("MetaData", metadataSchema)
 
