@@ -30,11 +30,11 @@ router.post('/create/metadata',
 
 
 // Fetch metaData by category Id
-router.get('/metadata/category/:categoryId', verifyAuth, metadataByCategory)
+router.get('/metadata/category/:categoryId', metadataByCategory)
 
 
 // fetch all metadata ---- [GET]
-router.get('/all/metadata', verifyAuth, fetchAllMetaData)
+router.get('/all/metadata', fetchAllMetaData)
 
 
 

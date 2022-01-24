@@ -30,11 +30,11 @@ router.post('/create/category',
 
 
 // fetch all categories --- [GET]
-router.get('/all/categories', verifyAuth, fetchCategories)
+router.get('/all/categories', fetchCategories)
 
 
 // fetch single category ---- [GET]
-router.get('/category/:categoryId', verifyAuth, fetchSingleCategory)
+router.get('/category/:categoryId', fetchSingleCategory)
 
 
 // update single category --- [PUT]
