@@ -241,6 +241,106 @@ const searchMetaData = async(req, res) => {
 
 
 
+/**
+ * Single MetaData
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Promise<any>}
+ */
+const singleMetaData = async(req, res) => {
+    try {
+
+        // get id
+        const id = req.params.id
+
+
+        // fetch metadata by Id
+        const metadata = await MetaData.findOne({ _id: id })
+
+
+        // check if metadata
+        if (!metadata) {
+            return res.json({
+                success: false,
+                message: "MetaData with id does not exist"
+            })
+        }
+
+        return res.json({
+            success: true,
+            data: metadata
+        })
+
+
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+
+/**
+ * Update MetaData
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Promise<any>}
+ */
+const updateMetaData = async(req, res) => {
+    try {
+
+        // get metadataId
+        const metadataId = req.params.metadataId
+
+
+        // find metadata by id
+        const metadata = await MetaData.findOne({ _id: metadataId })
+
+
+        // check if no metadata
+        if (!metadata) {
+            return res.json({
+                success: false,
+                message: "Metadata does not exist"
+            })
+
+        }
+
+        // update data
+        metadata.data = req.body
+
+        // save 
+        await metadata.save()
+
+
+        // return success
+        return res.json({
+            success: true,
+            message: "Metadata updated successfully"
+        })
+
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+
 
 // init metadataController
 const metaDataController = {
@@ -248,7 +348,9 @@ const metaDataController = {
     metadataByCategory,
     fetchAllMetaData,
     deleteMetaData,
-    searchMetaData
+    searchMetaData,
+    singleMetaData,
+    updateMetaData
 }
 
 
